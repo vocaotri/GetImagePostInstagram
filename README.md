@@ -1,4 +1,4 @@
-# get image of all posts instagram
+# Get image of all posts Instagram
 
 to run the app
 
