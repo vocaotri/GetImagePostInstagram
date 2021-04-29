@@ -1,6 +1,7 @@
-.env
-/accounts
-/cookies
-/db
-/output
-/node_modules
+/*
+!.env.example
+!.gitignore
+!.package-lock.json
+!package.json
+!README.md
+!server.js
