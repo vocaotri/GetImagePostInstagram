@@ -17,7 +17,7 @@ app.use(function (req, res, next) {
         "http://localhost:8000",
         "http://127.0.0.1:8080",
         "http://localhost:9000",
-        "https://pocchi.live/"
+        "https://pocchi.live"
     ];
     const origin = req.headers.origin;
     // Website you wish to allow to connect
