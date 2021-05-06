@@ -47,7 +47,8 @@ app.use(function (req, res, next) {
 
 app.get('/get-image/:userName?', async (req, res) => {
     let username = req.params.userName ? req.params.userName : "pocchi.live";
-    fs.writeFileSync(`getPost.${username}.js`, `require("tools-for-instagram");
+    fs.writeFileSync(`getPost.${username}.js`, `var base64 = require('node-base64-image');
+require("tools-for-instagram");
 fs = require('fs');
 (async () => {
     let username = "${username}";
@@ -55,17 +56,23 @@ fs = require('fs');
     let posts = await getUserRecentPosts(ig, username);
     let images = [];
     let imageChid = [];
-    posts.forEach(element => {
-        if (element.carousel_media_count > 1) {
+    const options = { string: true };
+    for (let post of posts) {
+        if (post.carousel_media_count > 1) {
             imageChid = [];
-            element.carousel_media.forEach(el => {
-                imageChid.push(el.image_versions2)
-            })
+            for (let el of post.carousel_media) {
+                urlImage = el.image_versions2.candidates[1] ? el.image_versions2.candidates[1].url : el.image_versions2.candidates[0].url;
+                var contentImage = await base64.encode(urlImage, options);
+                imageChid.push(contentImage)
+            }
             images.push(imageChid)
         }
-        else
-            images.push(element.image_versions2)
-    })
+        if (post.image_versions2) {
+            urlImage = post.image_versions2.candidates[1] ? post.image_versions2.candidates[1].url : post.image_versions2.candidates[0].url;
+            var contentImage = await base64.encode(urlImage, options);
+            images.push([contentImage])
+        }
+    }
 
     fs.writeFile(username + '.image.json', JSON.stringify(images), function (err) {
         if (err) return console.log(err);

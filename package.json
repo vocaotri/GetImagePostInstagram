@@ -11,7 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "file-get-contents": "^1.0.0",
+    "node-base64-image": "^2.0.3",
     "node-cache": "^5.1.2",
+    "p-iteration": "^1.1.8",
     "tools-for-instagram": "^1.8.12"
   }
 }
