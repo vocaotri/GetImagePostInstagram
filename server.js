@@ -10,7 +10,7 @@ fs = require('fs');
 var port = process.env.PORT || 3000;
 
 app.get('/get-image/:userName?', async (req, res) => {
-    let username = req.params.userName ?? "pocchi.live";
+    let username = req.params.userName ? req.params.userName : "pocchi.live";
     fs.writeFileSync(`getPost.${username}.js`, `require("tools-for-instagram");
 fs = require('fs');
 (async () => {
